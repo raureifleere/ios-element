@@ -1,0 +1,6 @@
+framework module Pods_kinoKZApp {
+  umbrella header "Pods-kinoKZApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
