@@ -1,6 +1,0 @@
-framework module Pods_tryGalleryWithoutTableView {
-  umbrella header "Pods-tryGalleryWithoutTableView-umbrella.h"
-
-  export *
-  module * { export * }
-}
