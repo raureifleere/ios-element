@@ -12,7 +12,17 @@ import Alamofire
 
 class intoWallStreetViewController: UIViewController {
     
-    private lazy var newsModelList: [WallStreetModel] = []
+    var newsModel: WallStreetModel? {
+        //MARK: ??????????
+        didSet {
+            guard let url = URL(string: newsModel?.urlToImage ?? "") else { fatalError("Incorrect configure backdropPath") }
+            DispatchQueue.main.async {
+                self.mainImageView.kf.setImage(with: url)
+            }
+            headerLabel.text = newsModel?.title
+            datePostLabel.text = newsModel?.publishedAt
+        }
+    }
     
     private lazy var contentView = UIView()
     
@@ -115,7 +125,7 @@ class intoWallStreetViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        WallStreetAPICaller.shared.delegate = self
+        //WallStreetAPICaller.shared.delegate = self
         WallStreetAPICaller.shared.fetchRequest()
         
         basicTableView.dataSource = self
@@ -127,19 +137,19 @@ class intoWallStreetViewController: UIViewController {
 
 }
 
-extension intoWallStreetViewController: WallstreetAPICallerDelegate {
-    func didUpdateMovieList(with newsList: [WallStreetModel]) {
-        self.newsModelList = newsList
-        DispatchQueue.main.async {
-            //items
-        }
-    }
-    
-    func didFailWithError(_ error: Error) {
-        print("Error wall Street news", error)
-    }
-    
-}
+//extension intoWallStreetViewController: WallstreetAPICallerDelegate {
+//    func didUpdateMovieList(with newsList: [WallStreetModel]) {
+//        self.newsModel = newsList
+//        DispatchQueue.main.async {
+//            //items
+////        }
+////    }
+//
+//    func didFailWithError(_ error: Error) {
+//        print("Error wall Street news", error)
+//    }
+//
+//}
 
 //MARK: - TableView Data source methods
 
@@ -150,7 +160,7 @@ extension intoWallStreetViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constans.Identifiers.intoWallStreetTableViewCell, for: indexPath) as? intoWallStreetTableViewCell else { return UITableViewCell() }
-        cell.configureArticle(with: newsModelList[indexPath.row].publishedAt)
+        cell.configureArticle(with: newsModel?.content ?? "")
         return cell
     }
     

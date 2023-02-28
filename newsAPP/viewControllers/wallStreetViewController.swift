@@ -131,7 +131,10 @@ extension wallStreetViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let model = newsModelList[indexPath.row]
+//        let jump = intoWallStreetViewController(model)
         let jump = intoWallStreetViewController()
+        jump.newsModel = newsModelList[indexPath.row]
         navigationController?.pushViewController(jump, animated: true)
     }
 }

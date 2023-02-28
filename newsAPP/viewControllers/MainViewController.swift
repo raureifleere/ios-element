@@ -20,6 +20,8 @@ final class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let vc = bubbleButtonViewController()
+        //разобраться!!!
+        //vc.modalPresentationStyle = .pageSheet
         navigationController?.present(vc, animated: true)
         
         setupViews()
